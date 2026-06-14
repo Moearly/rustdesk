@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hbb/common.dart';
 import 'package:flutter_hbb/common/widgets/audio_input.dart';
@@ -182,35 +183,35 @@ class _DesktopSettingPageState extends State<DesktopSettingPage>
       switch (tab) {
         case SettingsTabKey.general:
           settingTabs.add(_TabInfo(
-              tab, 'General', Icons.settings_outlined, Icons.settings));
+              tab, 'General', LucideIcons.settings, LucideIcons.settings));
           break;
         case SettingsTabKey.safety:
           settingTabs.add(_TabInfo(tab, 'Security',
-              Icons.enhanced_encryption_outlined, Icons.enhanced_encryption));
+              LucideIcons.shield_check, LucideIcons.shield_check));
           break;
         case SettingsTabKey.network:
-          settingTabs
-              .add(_TabInfo(tab, 'Network', Icons.link_outlined, Icons.link));
+          settingTabs.add(
+              _TabInfo(tab, 'Network', LucideIcons.network, LucideIcons.network));
           break;
         case SettingsTabKey.display:
-          settingTabs.add(_TabInfo(tab, 'Display',
-              Icons.desktop_windows_outlined, Icons.desktop_windows));
+          settingTabs.add(_TabInfo(
+              tab, 'Display', LucideIcons.monitor, LucideIcons.monitor));
           break;
         case SettingsTabKey.plugin:
           settingTabs.add(_TabInfo(
-              tab, 'Plugin', Icons.extension_outlined, Icons.extension));
+              tab, 'Plugin', LucideIcons.blocks, LucideIcons.blocks));
           break;
         case SettingsTabKey.account:
           settingTabs.add(
-              _TabInfo(tab, 'Account', Icons.person_outline, Icons.person));
+              _TabInfo(tab, 'Account', LucideIcons.user, LucideIcons.user));
           break;
         case SettingsTabKey.printer:
-          settingTabs
-              .add(_TabInfo(tab, 'Printer', Icons.print_outlined, Icons.print));
+          settingTabs.add(
+              _TabInfo(tab, 'Printer', LucideIcons.printer, LucideIcons.printer));
           break;
         case SettingsTabKey.about:
           settingTabs
-              .add(_TabInfo(tab, 'About', Icons.info_outline, Icons.info));
+              .add(_TabInfo(tab, 'About', LucideIcons.info, LucideIcons.info));
           break;
       }
     }
@@ -324,7 +325,7 @@ class _DesktopSettingPageState extends State<DesktopSettingPage>
                 Navigator.pop(context);
               }
             },
-            icon: Icon(Icons.arrow_back),
+            icon: Icon(LucideIcons.arrow_left),
           ).marginOnly(left: 5),
         if (isWeb)
           SizedBox(
@@ -1383,8 +1384,8 @@ class _SafetyState extends State<_Safety> with AutomaticKeepAliveClientMixin {
                   Offstage(
                     offstage: !hasWhitelist.value,
                     child: MouseRegion(
-                      child: const Icon(Icons.warning_amber_rounded,
-                              color: Color.fromARGB(255, 255, 204, 0))
+                      child: const Icon(LucideIcons.triangle_alert,
+                              color: Color.fromARGB(255, 255, 204, 0), size: 18)
                           .marginOnly(right: 5),
                       cursor: SystemMouseCursors.click,
                     ),
@@ -1610,7 +1611,7 @@ class _NetworkState extends State<_Network> with AutomaticKeepAliveClientMixin {
                       ),
                       SizedBox(width: 5),
                       Icon(
-                        Icons.help_outline,
+                        LucideIcons.info,
                         size: 14,
                         color: Theme.of(context)
                             .textTheme
@@ -1673,21 +1674,21 @@ class _NetworkState extends State<_Network> with AutomaticKeepAliveClientMixin {
             children: [
               if (!hideServer)
                 listTile(
-                  icon: Icons.dns_outlined,
+                  icon: LucideIcons.server,
                   title: 'ID/Relay Server',
                   onTap: () => showServerSettings(gFFI.dialogManager, setState),
                 ),
               if (!hideProxy && !hideServer) divider,
               if (!hideProxy)
                 listTile(
-                  icon: Icons.network_ping_outlined,
+                  icon: LucideIcons.network,
                   title: 'Socks5/Http(s) Proxy',
                   onTap: changeSocks5Proxy,
                 ),
               if (!hideWebSocket && (!hideServer || !hideProxy)) divider,
               if (!hideWebSocket)
                 switchWidget(
-                    Icons.web_asset_outlined,
+                    LucideIcons.app_window,
                     'Use WebSocket',
                     '${translate('websocket_tip')}\n\n${translate('server-oss-not-support-tip')}',
                     kOptionAllowWebSocket),
@@ -1703,14 +1704,14 @@ class _NetworkState extends State<_Network> with AutomaticKeepAliveClientMixin {
                           if (!hideServer || !hideProxy || !hideWebSocket)
                             divider,
                           switchWidget(
-                              Icons.no_encryption_outlined,
+                              LucideIcons.shield_off,
                               'Allow insecure TLS fallback',
                               'allow-insecure-tls-fallback-tip',
                               kOptionAllowInsecureTLSFallback),
                           if (!outgoingOnly) divider,
                           if (!outgoingOnly)
                             listTile(
-                              icon: Icons.lan_outlined,
+                              icon: LucideIcons.router,
                               title: 'Disable UDP',
                               showTooltip: true,
                               tooltipMessage:
@@ -2828,7 +2829,7 @@ Widget _lock(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Icon(
-                              Icons.security_sharp,
+                              LucideIcons.shield_check,
                               size: 20,
                             ),
                             Text(translate(label)).marginOnly(left: 5),
@@ -3045,7 +3046,7 @@ void changeSocks5Proxy() async {
                               waitDuration: Duration(milliseconds: 0),
                               message: translate("default_proxy_tip"),
                               child: Icon(
-                                Icons.help_outline_outlined,
+                                LucideIcons.info,
                                 size: 16,
                                 color: Theme.of(context)
                                     .textTheme
@@ -3110,8 +3111,8 @@ void changeSocks5Proxy() async {
                             suffixIcon: IconButton(
                                 onPressed: () => obscure.value = !obscure.value,
                                 icon: Icon(obscure.value
-                                    ? Icons.visibility_off
-                                    : Icons.visibility))),
+                                    ? LucideIcons.eye_off
+                                    : LucideIcons.eye))),
                         controller: pwdController,
                         enabled: !isOptFixed,
                         maxLength: bind.mainMaxEncryptLen(),
