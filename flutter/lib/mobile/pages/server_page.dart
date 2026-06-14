@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_hbb/desktop/pages/desktop_home_page.dart';
 import 'package:flutter_hbb/mobile/widgets/dialog.dart';
 import 'package:flutter_hbb/models/chat_model.dart';
@@ -20,7 +21,7 @@ class ServerPage extends StatefulWidget implements PageShape {
   final title = translate("Share screen");
 
   @override
-  final icon = const Icon(Icons.mobile_screen_share);
+  final icon = const Icon(LucideIcons.monitor_up);
 
   @override
   final appBarActions = (!bind.isDisableSettings() &&

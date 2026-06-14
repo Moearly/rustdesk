@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_hbb/common/widgets/setting_widgets.dart';
 import 'package:flutter_hbb/desktop/pages/desktop_setting_page.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,7 @@ class SettingsPage extends StatefulWidget implements PageShape {
   final title = translate("Settings");
 
   @override
-  final icon = Icon(Icons.settings);
+  final icon = const Icon(LucideIcons.settings);
 
   @override
   final appBarActions = bind.isDisableSettings() ? [] : [ScanButton()];
