@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_hbb/common/widgets/audio_input.dart';
 import 'package:flutter_hbb/consts.dart';
 import 'package:flutter_hbb/desktop/widgets/tabbar_widget.dart';
@@ -316,9 +317,9 @@ class ConnectionManagerState extends State<ConnectionManager>
         child: Row(
           children: [
             ActionIcon(
-                icon: Icons.arrow_left, iconSize: 22, onTap: sc.backward),
+                icon: LucideIcons.arrow_left, iconSize: 22, onTap: sc.backward),
             ActionIcon(
-                icon: Icons.arrow_right, iconSize: 22, onTap: sc.forward),
+                icon: LucideIcons.arrow_right, iconSize: 22, onTap: sc.forward),
           ],
         ));
   }
@@ -686,7 +687,7 @@ class _PrivilegeBoardState extends State<_PrivilegeBoard> {
                   ? [
                       buildPermissionIcon(
                         client.audio,
-                        Icons.volume_up_rounded,
+                        LucideIcons.volume_2,
                         (enabled) {
                           bind.cmSwitchPermission(
                               connId: client.id,
@@ -701,7 +702,7 @@ class _PrivilegeBoardState extends State<_PrivilegeBoard> {
                       ),
                       buildPermissionIcon(
                         client.recording,
-                        Icons.videocam_rounded,
+                        LucideIcons.video,
                         (enabled) {
                           bind.cmSwitchPermission(
                               connId: client.id,
@@ -718,7 +719,7 @@ class _PrivilegeBoardState extends State<_PrivilegeBoard> {
                   : [
                       buildPermissionIcon(
                         client.keyboard,
-                        Icons.keyboard,
+                        LucideIcons.keyboard,
                         (enabled) {
                           bind.cmSwitchPermission(
                               connId: client.id,
@@ -733,7 +734,7 @@ class _PrivilegeBoardState extends State<_PrivilegeBoard> {
                       ),
                       buildPermissionIcon(
                         client.clipboard,
-                        Icons.assignment_rounded,
+                        LucideIcons.clipboard,
                         (enabled) {
                           bind.cmSwitchPermission(
                               connId: client.id,
@@ -748,7 +749,7 @@ class _PrivilegeBoardState extends State<_PrivilegeBoard> {
                       ),
                       buildPermissionIcon(
                         client.audio,
-                        Icons.volume_up_rounded,
+                        LucideIcons.volume_2,
                         (enabled) {
                           bind.cmSwitchPermission(
                               connId: client.id,
@@ -763,7 +764,7 @@ class _PrivilegeBoardState extends State<_PrivilegeBoard> {
                       ),
                       buildPermissionIcon(
                         client.file,
-                        Icons.upload_file_rounded,
+                        LucideIcons.upload,
                         (enabled) {
                           bind.cmSwitchPermission(
                               connId: client.id,
@@ -778,7 +779,7 @@ class _PrivilegeBoardState extends State<_PrivilegeBoard> {
                       ),
                       buildPermissionIcon(
                         client.restart,
-                        Icons.restart_alt_rounded,
+                        LucideIcons.rotate_ccw,
                         (enabled) {
                           bind.cmSwitchPermission(
                               connId: client.id,
@@ -793,7 +794,7 @@ class _PrivilegeBoardState extends State<_PrivilegeBoard> {
                       ),
                       buildPermissionIcon(
                         client.recording,
-                        Icons.videocam_rounded,
+                        LucideIcons.video,
                         (enabled) {
                           bind.cmSwitchPermission(
                               connId: client.id,
@@ -810,7 +811,7 @@ class _PrivilegeBoardState extends State<_PrivilegeBoard> {
                       if (isWindows)
                         buildPermissionIcon(
                           client.blockInput,
-                          Icons.block,
+                          LucideIcons.ban,
                           (enabled) {
                             bind.cmSwitchPermission(
                                 connId: client.id,
@@ -826,7 +827,7 @@ class _PrivilegeBoardState extends State<_PrivilegeBoard> {
                       if (bind.mainSupportedPrivacyModeImpls() != '[]')
                         buildPermissionIcon(
                           client.privacyMode,
-                          Icons.visibility_off,
+                          LucideIcons.eye_off,
                           (enabled) {
                             bind.cmSwitchPermission(
                                 connId: client.id,
@@ -935,7 +936,7 @@ class _CmControlPanel extends StatelessWidget {
                   );
                 },
                     icon: Icon(
-                      Icons.call_rounded,
+                      LucideIcons.phone,
                       color: Colors.white,
                       size: 14,
                     ),
@@ -948,7 +949,7 @@ class _CmControlPanel extends StatelessWidget {
                   color: Colors.red,
                   onClick: () => closeVoiceCall(),
                   icon: Icon(
-                    Icons.call_end_rounded,
+                    LucideIcons.phone_off,
                     color: Colors.white,
                     size: 14,
                   ),
@@ -968,7 +969,7 @@ class _CmControlPanel extends StatelessWidget {
                     color: MyTheme.accent,
                     onClick: () => handleVoiceCall(true),
                     icon: Icon(
-                      Icons.call_rounded,
+                      LucideIcons.phone,
                       color: Colors.white,
                       size: 14,
                     ),
@@ -981,7 +982,7 @@ class _CmControlPanel extends StatelessWidget {
                   color: Colors.red,
                   onClick: () => handleVoiceCall(false),
                   icon: Icon(
-                    Icons.phone_disabled_rounded,
+                    LucideIcons.phone_off,
                     color: Colors.white,
                     size: 14,
                   ),
@@ -997,7 +998,7 @@ class _CmControlPanel extends StatelessWidget {
           child: buildButton(context,
               color: Colors.purple,
               onClick: () => handleSwitchBack(context),
-              icon: Icon(Icons.reply, color: Colors.white),
+              icon: Icon(LucideIcons.reply, color: Colors.white),
               text: "Switch Sides",
               textColor: Colors.white),
         ),
@@ -1011,7 +1012,7 @@ class _CmControlPanel extends StatelessWidget {
               windowManager.minimize();
             },
             icon: Icon(
-              Icons.security_rounded,
+              LucideIcons.shield,
               color: Colors.white,
               size: 14,
             ),
@@ -1027,7 +1028,7 @@ class _CmControlPanel extends StatelessWidget {
                   onClick: handleDisconnect,
                   text: 'Disconnect',
                   icon: Icon(
-                    Icons.link_off_rounded,
+                    LucideIcons.link_2_off,
                     color: Colors.white,
                     size: 14,
                   ),
@@ -1072,7 +1073,7 @@ class _CmControlPanel extends StatelessWidget {
           },
               text: 'Accept and Elevate',
               icon: Icon(
-                Icons.security_rounded,
+                LucideIcons.shield,
                 color: Colors.white,
                 size: 14,
               ),
@@ -1278,7 +1279,7 @@ class __FileTransferLogPageState extends State<_FileTransferLogPage> {
         return Column(
           children: [
             Icon(
-              Icons.delete,
+              LucideIcons.trash_2,
               color: Theme.of(context).tabBarTheme.labelColor,
             ),
             Text(translate('Delete'))
@@ -1288,7 +1289,7 @@ class __FileTransferLogPageState extends State<_FileTransferLogPage> {
         return Column(
           children: [
             Icon(
-              Icons.create_new_folder,
+              LucideIcons.folder_plus,
               color: Theme.of(context).tabBarTheme.labelColor,
             ),
             Text(translate('Create Folder'))
@@ -1298,7 +1299,7 @@ class __FileTransferLogPageState extends State<_FileTransferLogPage> {
         return Column(
           children: [
             Icon(
-              Icons.drive_file_move_outlined,
+              LucideIcons.folder_input,
               color: Theme.of(context).tabBarTheme.labelColor,
             ),
             Text(translate('Rename'))

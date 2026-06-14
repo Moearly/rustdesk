@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_hbb/common.dart';
 import 'package:flutter_hbb/desktop/widgets/tabbar_widget.dart';
 import 'package:flutter_hbb/models/platform_model.dart';
@@ -153,7 +154,7 @@ class _InstallPageBodyState extends State<_InstallPageBody>
                   ),
                   Obx(
                     () => OutlinedButton.icon(
-                      icon: Icon(Icons.folder_outlined, size: 16),
+                      icon: Icon(LucideIcons.folder, size: 16),
                       onPressed: btnEnabled.value ? selectInstallPath : null,
                       style: buttonStyle,
                       label: Text(translate('Change Path')),
@@ -177,7 +178,7 @@ class _InstallPageBodyState extends State<_InstallPageBody>
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.info_outline_rounded, size: 32)
+                      Icon(LucideIcons.info, size: 32)
                           .marginOnly(right: 16),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,7 +192,7 @@ class _InstallPageBodyState extends State<_InstallPageBody>
                             child: Tooltip(
                               message: 'https://rustdesk.com/privacy.html',
                               child: Row(children: [
-                                Icon(Icons.launch_outlined, size: 16)
+                                Icon(LucideIcons.external_link, size: 16)
                                     .marginOnly(right: 5),
                                 Text(
                                   translate('End-user license agreement'),
@@ -215,7 +216,7 @@ class _InstallPageBodyState extends State<_InstallPageBody>
                   ),
                   Obx(
                     () => OutlinedButton.icon(
-                      icon: Icon(Icons.close_rounded, size: 16),
+                      icon: Icon(LucideIcons.x, size: 16),
                       label: Text(translate('Cancel')),
                       onPressed:
                           btnEnabled.value ? () => windowManager.close() : null,
@@ -224,7 +225,7 @@ class _InstallPageBodyState extends State<_InstallPageBody>
                   ),
                   Obx(
                     () => ElevatedButton.icon(
-                      icon: Icon(Icons.done_rounded, size: 16),
+                      icon: Icon(LucideIcons.check, size: 16),
                       label: Text(translate('Accept and Install')),
                       onPressed: btnEnabled.value ? install : null,
                       style: buttonStyle,
@@ -234,7 +235,7 @@ class _InstallPageBodyState extends State<_InstallPageBody>
                     offstage: bind.installShowRunWithoutInstall(),
                     child: Obx(
                       () => OutlinedButton.icon(
-                        icon: Icon(Icons.screen_share_outlined, size: 16),
+                        icon: Icon(LucideIcons.monitor_up, size: 16),
                         label: Text(translate('Run without install')),
                         onPressed: btnEnabled.value
                             ? () => bind.installRunWithoutInstall()

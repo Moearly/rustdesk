@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hbb/common.dart';
 import 'package:flutter_hbb/desktop/widgets/tabbar_widget.dart';
@@ -198,7 +199,7 @@ class _PortForwardPageState extends State<PortForwardPage>
             controller: localPortController,
             inputFormatters: portInputFormatter),
         const SizedBox(
-            width: _kColumn1Width, child: Icon(Icons.arrow_forward_sharp)),
+            width: _kColumn1Width, child: Icon(LucideIcons.arrow_right)),
         buildTunnelInputCell(context,
             controller: remoteHostController, hint: 'localhost'),
         buildTunnelInputCell(context,
@@ -270,7 +271,7 @@ class _PortForwardPageState extends State<PortForwardPage>
         SizedBox(
           width: _kColumn4Width,
           child: IconButton(
-            icon: const Icon(Icons.close),
+            icon: const Icon(LucideIcons.x),
             onPressed: () async {
               await bind.sessionRemovePortForward(
                   sessionId: _ffi.sessionId, localPort: pf.localPort);
@@ -342,7 +343,7 @@ class _PortForwardPageState extends State<PortForwardPage>
                   ),
                   const SizedBox(
                       width: _kColumn1Width,
-                      child: Icon(Icons.arrow_forward_sharp)),
+                      child: Icon(LucideIcons.arrow_right)),
                   text2('localhost'),
                   text2('RDP'),
                 ]),

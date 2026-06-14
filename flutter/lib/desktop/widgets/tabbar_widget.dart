@@ -6,6 +6,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:desktop_multi_window/desktop_multi_window.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart' hide TabBarTheme;
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_hbb/common.dart';
 import 'package:flutter_hbb/consts.dart';
 import 'package:flutter_hbb/desktop/pages/remote_page.dart';
@@ -881,7 +882,7 @@ Future<bool> closeConfirmDialog() async {
 
     return CustomAlertDialog(
       title: Row(children: [
-        const Icon(Icons.warning_amber_sharp,
+        const Icon(LucideIcons.triangle_alert,
             color: Colors.redAccent, size: 28),
         const SizedBox(width: 10),
         Text(translate("Warning")),
@@ -1233,7 +1234,7 @@ class _CloseButton extends StatelessWidget {
                   customBorder: const CircleBorder(),
                   onTap: () => onClose(),
                   child: Icon(
-                    Icons.close,
+                    LucideIcons.x,
                     size: _kIconSize,
                     color: tabSelected
                         ? MyTheme.tabbar(context).selectedIconColor
@@ -1354,7 +1355,7 @@ class _TabDropDownButtonState extends State<_TabDropDownButton> {
         final y = details.globalPosition.dy;
         position = RelativeRect.fromLTRB(x, y, x, y);
       },
-      icon: Icons.arrow_drop_down,
+      icon: LucideIcons.chevron_down,
       onTap: () {
         showMenu(
           context: context,
@@ -1408,7 +1409,7 @@ class _TabDropDownButtonState extends State<_TabDropDownButton> {
                                       setState(() => btnHover.value = true),
                                   onExit: (event) =>
                                       setState(() => btnHover.value = false),
-                                  child: Icon(Icons.close,
+                                  child: Icon(LucideIcons.x,
                                       color:
                                           btnHover.value ? Colors.red : null)));
                         } else {

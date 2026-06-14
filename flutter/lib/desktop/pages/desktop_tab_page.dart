@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_hbb/common.dart';
 import 'package:flutter_hbb/consts.dart';
 import 'package:flutter_hbb/desktop/pages/desktop_home_page.dart';
@@ -25,8 +26,8 @@ class DesktopTabPage extends StatefulWidget {
       tabController.add(TabInfo(
           key: kTabLabelSettingPage,
           label: kTabLabelSettingPage,
-          selectedIcon: Icons.build_sharp,
-          unselectedIcon: Icons.build_outlined,
+          selectedIcon: LucideIcons.settings,
+          unselectedIcon: LucideIcons.settings,
           page: DesktopSettingPage(
             key: const ValueKey(kTabLabelSettingPage),
             initialTabkey: initialPage,
@@ -46,8 +47,8 @@ class _DesktopTabPageState extends State<DesktopTabPage> {
     tabController.add(TabInfo(
         key: kTabLabelHomePage,
         label: kTabLabelHomePage,
-        selectedIcon: Icons.home_sharp,
-        unselectedIcon: Icons.home_outlined,
+        selectedIcon: LucideIcons.house,
+        unselectedIcon: LucideIcons.house,
         closable: false,
         page: DesktopHomePage(
           key: const ValueKey(kTabLabelHomePage),

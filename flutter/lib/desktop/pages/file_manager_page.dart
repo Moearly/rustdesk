@@ -9,6 +9,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
 import 'package:flutter_hbb/desktop/widgets/list_search_action_listener.dart';
@@ -216,7 +217,7 @@ class _FileManagerPageState extends State<FileManagerPage>
       switch (job.type) {
         case JobType.deleteDir:
         case JobType.deleteFile:
-          return Icon(Icons.delete_outline, color: color);
+          return Icon(LucideIcons.trash_2, color: color);
         default:
           return Transform.rotate(
             angle: isWeb
@@ -226,7 +227,7 @@ class _FileManagerPageState extends State<FileManagerPage>
                 : job.isRemoteToLocal
                     ? pi
                     : 0,
-            child: Icon(Icons.arrow_forward_ios, color: color),
+            child: Icon(LucideIcons.chevron_right, color: color),
           );
       }
     }
@@ -790,13 +791,13 @@ class _FileManagerViewState extends State<FileManagerView> {
                             actions: [
                               dialogButton(
                                 "Cancel",
-                                icon: Icon(Icons.close_rounded),
+                                icon: Icon(LucideIcons.x),
                                 onPressed: cancel,
                                 isOutline: true,
                               ),
                               dialogButton(
                                 "Ok",
-                                icon: Icon(Icons.done_rounded),
+                                icon: Icon(LucideIcons.check),
                                 onPressed: submit,
                               ),
                             ],
@@ -882,7 +883,7 @@ class _FileManagerViewState extends State<FileManagerView> {
                             webselectFiles(is_folder: value);
                           }
                         },
-                        child: Icon(Icons.arrow_drop_down),
+                        child: Icon(LucideIcons.chevron_down),
                       ),
                       icon: Text(
                         translate(isUploadFolder.isTrue
@@ -1454,8 +1455,9 @@ class _FileManagerViewState extends State<FileManagerView> {
                     ascending.value != null
                         ? Icon(
                             ascending.value!
-                                ? Icons.keyboard_arrow_up_rounded
-                                : Icons.keyboard_arrow_down_rounded,
+                                ? LucideIcons.chevron_up
+                                : LucideIcons.chevron_down,
+                            size: 18,
                           )
                         : SizedBox()
                   ],
@@ -1497,7 +1499,7 @@ class _FileManagerViewState extends State<FileManagerView> {
                     },
                     child: BreadCrumb(
                       items: items,
-                      divider: const Icon(Icons.keyboard_arrow_right_rounded),
+                      divider: const Icon(LucideIcons.chevron_right, size: 18),
                       overflow: ScrollableOverflow(
                         controller: _breadCrumbScroller,
                       ),
@@ -1506,7 +1508,7 @@ class _FileManagerViewState extends State<FileManagerView> {
                 ),
                 ActionIcon(
                   message: "",
-                  icon: Icons.keyboard_arrow_down_rounded,
+                  icon: LucideIcons.chevron_down,
                   onTap: () async {
                     final renderBox = _locationBarKey.currentContext
                         ?.findRenderObject() as RenderBox;
@@ -1687,7 +1689,7 @@ class _FileManagerViewState extends State<FileManagerView> {
 Widget buildWindowsThisPC(BuildContext context, [TextStyle? textStyle]) {
   final color = Theme.of(context).iconTheme.color?.withOpacity(0.7);
   return Row(children: [
-    Icon(Icons.computer, size: 20, color: color),
+    Icon(LucideIcons.monitor, size: 20, color: color),
     SizedBox(width: 10),
     Text(translate('This PC'), style: textStyle)
   ]);
