@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:desktop_multi_window/desktop_multi_window.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_hbb/common.dart';
 import 'package:flutter_hbb/common/widgets/dialog.dart';
 import 'package:flutter_hbb/consts.dart';
@@ -26,8 +27,8 @@ class FileManagerTabPage extends StatefulWidget {
 class _FileManagerTabPageState extends State<FileManagerTabPage> {
   DesktopTabController get tabController => Get.find<DesktopTabController>();
 
-  static const IconData selectedIcon = Icons.file_copy_sharp;
-  static const IconData unselectedIcon = Icons.file_copy_outlined;
+  static const IconData selectedIcon = LucideIcons.folder_open;
+  static const IconData unselectedIcon = LucideIcons.folder_open;
 
   _FileManagerTabPageState(Map<String, dynamic> params) {
     Get.put(DesktopTabController(tabType: DesktopTabType.fileTransfer));

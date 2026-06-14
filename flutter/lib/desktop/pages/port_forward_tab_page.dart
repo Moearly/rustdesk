@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:desktop_multi_window/desktop_multi_window.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_hbb/common.dart';
 import 'package:flutter_hbb/consts.dart';
 import 'package:flutter_hbb/models/state_model.dart';
@@ -23,8 +24,8 @@ class _PortForwardTabPageState extends State<PortForwardTabPage> {
   late final DesktopTabController tabController;
   late final bool isRDP;
 
-  static const IconData selectedIcon = Icons.forward_sharp;
-  static const IconData unselectedIcon = Icons.forward_outlined;
+  static const IconData selectedIcon = LucideIcons.arrow_right_left;
+  static const IconData unselectedIcon = LucideIcons.arrow_right_left;
 
   _PortForwardTabPageState(Map<String, dynamic> params) {
     isRDP = params['isRDP'];

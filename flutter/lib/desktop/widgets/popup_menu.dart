@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:get/get.dart';
 
 import '../../common.dart';
@@ -245,7 +246,7 @@ class MenuEntryRadios<T> extends MenuEntryBase<T> {
                             focusColor: Colors.transparent,
                             onPressed: () {},
                             icon: Icon(
-                              Icons.check,
+                              LucideIcons.check,
                               color: (opt.enabled ?? true.obs).isTrue
                                   ? conf.commonColor
                                   : Colors.grey,
@@ -361,7 +362,7 @@ class MenuEntrySubRadios<T> extends MenuEntryBase<T> {
                                 focusColor: Colors.transparent,
                                 onPressed: () {},
                                 icon: Icon(
-                                  Icons.check,
+                                  LucideIcons.check,
                                   color: conf.commonColor,
                                 ))
                             : const SizedBox.shrink())),
@@ -405,7 +406,7 @@ class MenuEntrySubRadios<T> extends MenuEntryBase<T> {
               child: Align(
             alignment: Alignment.centerRight,
             child: Icon(
-              Icons.keyboard_arrow_right,
+              LucideIcons.chevron_right,
               color: conf.commonColor,
             ),
           ))
@@ -679,7 +680,7 @@ class MenuEntrySubMenu<T> extends MenuEntryBase<T> {
               child: Align(
             alignment: Alignment.centerRight,
             child: Obx(() => Icon(
-                  Icons.keyboard_arrow_right,
+                  LucideIcons.chevron_right,
                   color: super.enabled!.value ? conf.commonColor : Colors.grey,
                 )),
           ))

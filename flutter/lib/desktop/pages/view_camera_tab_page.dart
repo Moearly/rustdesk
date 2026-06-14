@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:desktop_multi_window/desktop_multi_window.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_hbb/common.dart';
 import 'package:flutter_hbb/common/shared_state.dart';
 import 'package:flutter_hbb/common/widgets/dialog.dart';
@@ -43,8 +44,8 @@ class _ViewCameraTabPageState extends State<ViewCameraTabPage> {
   final tabController =
       Get.put(DesktopTabController(tabType: DesktopTabType.viewCamera));
   final contentKey = UniqueKey();
-  static const IconData selectedIcon = Icons.desktop_windows_sharp;
-  static const IconData unselectedIcon = Icons.desktop_windows_outlined;
+  static const IconData selectedIcon = LucideIcons.camera;
+  static const IconData unselectedIcon = LucideIcons.camera;
 
   String? peerId;
   bool _isScreenRectSet = false;

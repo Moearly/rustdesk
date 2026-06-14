@@ -270,7 +270,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                 ? Theme.of(context).scaffoldBackgroundColor
                 : Theme.of(context).colorScheme.background,
             child: Icon(
-              Icons.more_vert_outlined,
+              LucideIcons.ellipsis_vertical,
               size: 20,
               color: hover.value ? textColor : textColor?.withOpacity(0.5),
             ),
@@ -351,11 +351,11 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                             child: Obx(() => RotatedBox(
                                 quarterTurns: 2,
                                 child: Icon(
-                                  Icons.refresh,
+                                  LucideIcons.rotate_cw,
                                   color: refreshHover.value
                                       ? textColor
                                       : Color(0xFFDDDDDD),
-                                  size: 22,
+                                  size: 20,
                                 ))),
                           ),
                           onHover: (value) => refreshHover.value = value,
@@ -366,11 +366,11 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                             message: translate('Change Password'),
                             child: Obx(
                               () => Icon(
-                                Icons.edit,
+                                LucideIcons.pencil,
                                 color: editHover.value
                                     ? textColor
                                     : Color(0xFFDDDDDD),
-                                size: 22,
+                                size: 20,
                               ).marginOnly(right: 8, top: 4),
                             ),
                           ),
@@ -684,7 +684,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
             right: 0,
             child: IconButton(
               icon: Icon(
-                Icons.close,
+                LucideIcons.x,
                 color: Colors.white,
                 size: 20,
               ),

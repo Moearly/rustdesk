@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:desktop_multi_window/desktop_multi_window.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_hbb/common.dart';
 import 'package:flutter_hbb/common/shared_state.dart';
 import 'package:flutter_hbb/consts.dart';
@@ -43,8 +44,8 @@ class _ConnectionTabPageState extends State<ConnectionTabPage> {
   final tabController =
       Get.put(DesktopTabController(tabType: DesktopTabType.remoteScreen));
   final contentKey = UniqueKey();
-  static const IconData selectedIcon = Icons.desktop_windows_sharp;
-  static const IconData unselectedIcon = Icons.desktop_windows_outlined;
+  static const IconData selectedIcon = LucideIcons.monitor;
+  static const IconData unselectedIcon = LucideIcons.monitor;
 
   String? peerId;
   bool _isScreenRectSet = false;
@@ -603,7 +604,7 @@ class _RelativeMouseModeHint extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
-              Icons.mouse,
+              LucideIcons.mouse,
               size: 14,
               color: Colors.orange[700],
             ),

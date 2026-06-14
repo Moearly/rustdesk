@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:desktop_multi_window/desktop_multi_window.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hbb/common.dart';
 import 'package:flutter_hbb/common/widgets/dialog.dart';
@@ -31,8 +32,8 @@ class TerminalTabPage extends StatefulWidget {
 class _TerminalTabPageState extends State<TerminalTabPage> {
   DesktopTabController get tabController => Get.find<DesktopTabController>();
 
-  static const IconData selectedIcon = Icons.terminal;
-  static const IconData unselectedIcon = Icons.terminal_outlined;
+  static const IconData selectedIcon = LucideIcons.terminal;
+  static const IconData unselectedIcon = LucideIcons.terminal;
   int _nextTerminalId = 1;
   // Lightweight idempotency guard for async close operations
   final Set<String> _closingTabs = {};
