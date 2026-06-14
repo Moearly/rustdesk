@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hbb/common/widgets/audio_input.dart';
 import 'package:flutter_hbb/common/widgets/dialog.dart';
@@ -192,13 +193,13 @@ int _monitorMenuQuarterTurns(_ToolbarEdge edge) {
 IconData _toolbarCollapseIcon(_ToolbarEdge edge, bool isCollapsed) {
   switch (edge) {
     case _ToolbarEdge.top:
-      return isCollapsed ? Icons.expand_more : Icons.expand_less;
+      return isCollapsed ? LucideIcons.chevron_down : LucideIcons.chevron_up;
     case _ToolbarEdge.bottom:
-      return isCollapsed ? Icons.expand_less : Icons.expand_more;
+      return isCollapsed ? LucideIcons.chevron_up : LucideIcons.chevron_down;
     case _ToolbarEdge.left:
-      return isCollapsed ? Icons.chevron_right : Icons.chevron_left;
+      return isCollapsed ? LucideIcons.chevron_right : LucideIcons.chevron_left;
     case _ToolbarEdge.right:
-      return isCollapsed ? Icons.chevron_left : Icons.chevron_right;
+      return isCollapsed ? LucideIcons.chevron_left : LucideIcons.chevron_right;
   }
 }
 
@@ -1790,7 +1791,7 @@ class _CustomScaleMenuControlsState
               iconSize: 16,
               padding: EdgeInsets.all(1),
               constraints: smallBtnConstraints,
-              icon: const Icon(Icons.remove),
+              icon: const Icon(LucideIcons.minus),
               onPressed: () => nudgeScale(-1),
             ),
           ),
@@ -1801,7 +1802,7 @@ class _CustomScaleMenuControlsState
               iconSize: 16,
               padding: EdgeInsets.all(1),
               constraints: smallBtnConstraints,
-              icon: const Icon(Icons.add),
+              icon: const Icon(LucideIcons.plus),
               onPressed: () => nudgeScale(1),
             ),
           ),
@@ -2355,7 +2356,7 @@ class _KeyboardMenu extends StatelessWidget {
         MenuButton(
           child: Text(
               '${translate('Local keyboard type')}: ${KBLayoutType.value}'),
-          trailingIcon: const Icon(Icons.settings),
+          trailingIcon: const Icon(LucideIcons.settings),
           ffi: ffi,
           onPressed: enabled
               ? () => showKBLayoutTypeChooser(localPlatform, ffi.dialogManager)
@@ -3192,7 +3193,9 @@ class _DraggableShowHideState extends State<_DraggableShowHide> {
         // unmoored. When multi-edge is on we need 2D drag for snap-to-edge.
         axis: widget.multiEdgeEnabled ? null : Axis.horizontal,
         child: Icon(
-          widget.isHorizontal ? Icons.drag_indicator : Icons.drag_handle,
+          widget.isHorizontal
+              ? LucideIcons.grip_vertical
+              : LucideIcons.grip_horizontal,
           size: 20,
           color: MyTheme.color(context).drag_indicator,
         ),
@@ -3258,8 +3261,8 @@ class _DraggableShowHideState extends State<_DraggableShowHide> {
                     isFullscreen.isTrue ? 'Exit Fullscreen' : 'Fullscreen'),
                 child: Icon(
                   isFullscreen.isTrue
-                      ? Icons.fullscreen_exit
-                      : Icons.fullscreen,
+                      ? LucideIcons.minimize
+                      : LucideIcons.maximize,
                   size: iconSize,
                 ),
               ),
@@ -3272,7 +3275,7 @@ class _DraggableShowHideState extends State<_DraggableShowHide> {
                   Tooltip(
                     message: translate('Minimize'),
                     child: Icon(
-                      Icons.remove,
+                      LucideIcons.minus,
                       size: iconSize,
                     ),
                   ),
@@ -3301,7 +3304,7 @@ class _DraggableShowHideState extends State<_DraggableShowHide> {
                 Tooltip(
                   message: translate('Close'),
                   child: Icon(
-                    Icons.close,
+                    LucideIcons.x,
                     size: iconSize,
                     color: _ToolbarTheme.redColor,
                   ),
