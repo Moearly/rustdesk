@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_hbb/common/formatter/id_formatter.dart';
 import 'package:flutter_hbb/common/widgets/connection_page_title.dart';
@@ -17,7 +18,24 @@ import '../../common/widgets/autocomplete.dart';
 import '../../consts.dart';
 import '../../models/model.dart';
 import '../../models/platform_model.dart';
+import '../../models/server_model.dart';
 import 'home_page.dart';
+
+/// 控多多移动端首页配色（深色商业级，紫罗兰品牌）
+class _KddColors {
+  static const Color bgBase = Color(0xFF0B0E14);
+  static const Color surface = Color(0xFF161A22);
+  static const Color input = Color(0xFF1F242E);
+  static const Color borderDefault = Color(0xFF272D38);
+  static const Color borderSubtle = Color(0xFF20252F);
+  static const Color brand = Color(0xFF7355ED);
+  static const Color brandDark = Color(0xFF5032BD);
+  static const Color textPrimary = Color(0xFFE6EAF2);
+  static const Color textSecondary = Color(0xFF9CA5B4);
+  static const Color textTertiary = Color(0xFF6C7280);
+  static const Color online = Color(0xFF22C55E);
+  static const Color amber = Color(0xFFF59E0B);
+}
 
 /// Connection page for connecting to a remote peer.
 class ConnectionPage extends StatefulWidget implements PageShape {
@@ -81,20 +99,295 @@ class _ConnectionPageState extends State<ConnectionPage> {
   @override
   Widget build(BuildContext context) {
     Provider.of<FfiModel>(context);
-    return CustomScrollView(
-      slivers: [
-        SliverList(
-            delegate: SliverChildListDelegate([
-          if (!bind.isCustomClient() && !isIOS)
-            Obx(() => _buildUpdateUI(stateGlobal.updateUrl.value)),
-          _buildRemoteIDTextField(),
-        ])),
-        SliverFillRemaining(
-          hasScrollBody: true,
-          child: PeerTabPage(),
-        )
-      ],
-    ).marginOnly(top: 2, left: 10, right: 10);
+    return Container(
+      color: _KddColors.bgBase,
+      child: Stack(
+        children: [
+          // 顶部品牌光晕
+          Positioned(
+            top: -180,
+            left: -60,
+            child: Container(
+              width: 420,
+              height: 420,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    _KddColors.brand.withOpacity(0.22),
+                    _KddColors.brand.withOpacity(0.0),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          CustomScrollView(
+            slivers: [
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  if (!bind.isCustomClient() && !isIOS)
+                    Obx(() => _buildUpdateUI(stateGlobal.updateUrl.value)),
+                  const SizedBox(height: 8),
+                  _buildDeviceCard(),
+                  const SizedBox(height: 22),
+                  _buildSectionTitle(translate('Control Remote Desktop')),
+                  const SizedBox(height: 10),
+                  _buildRemoteIDTextField(),
+                  const SizedBox(height: 22),
+                  _buildQuickActions(),
+                  const SizedBox(height: 18),
+                  _buildSectionTitle(translate('Recent sessions')),
+                  const SizedBox(height: 4),
+                ]),
+              ),
+              SliverFillRemaining(
+                hasScrollBody: true,
+                child: PeerTabPage(),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 18),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: _KddColors.textTertiary,
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 0.3,
+        ),
+      ),
+    );
+  }
+
+  /// 英雄设备卡：展示本机 ID + 一次性密码（数据来自 ServerModel）
+  Widget _buildDeviceCard() {
+    return Consumer<ServerModel>(
+      builder: (context, model, child) {
+        final id = model.serverId.text.trim();
+        final pwd = model.serverPasswd.text.trim();
+        final online = model.connectStatus > 0;
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 14),
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: _KddColors.surface,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: _KddColors.borderDefault, width: 1),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 30,
+                spreadRadius: -4,
+                offset: const Offset(0, 10),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // 状态胶囊
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
+                decoration: BoxDecoration(
+                  color: (online ? _KddColors.online : _KddColors.textTertiary)
+                      .withOpacity(0.13),
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 7,
+                      height: 7,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: online
+                            ? _KddColors.online
+                            : _KddColors.textTertiary,
+                        boxShadow: online
+                            ? [
+                                BoxShadow(
+                                    color: _KddColors.online.withOpacity(0.8),
+                                    blurRadius: 6)
+                              ]
+                            : null,
+                      ),
+                    ),
+                    const SizedBox(width: 7),
+                    Text(
+                      online
+                          ? translate('Ready')
+                          : translate('Not ready'),
+                      style: TextStyle(
+                        color: online
+                            ? _KddColors.online
+                            : _KddColors.textSecondary,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 18),
+              // ID
+              Text(translate('ID'),
+                  style: const TextStyle(
+                      color: _KddColors.textTertiary,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500)),
+              const SizedBox(height: 4),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Text(
+                      formatID(id),
+                      style: const TextStyle(
+                        color: _KddColors.textPrimary,
+                        fontSize: 27,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  _miniIconButton(LucideIcons.copy, () {
+                    Clipboard.setData(ClipboardData(text: id));
+                    showToast(translate('Copied'));
+                  }),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Container(height: 1, color: _KddColors.borderSubtle),
+              const SizedBox(height: 16),
+              // 密码
+              Text(translate('One-time Password'),
+                  style: const TextStyle(
+                      color: _KddColors.textTertiary,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500)),
+              const SizedBox(height: 4),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    pwd.isEmpty ? '-' : pwd,
+                    style: const TextStyle(
+                      color: _KddColors.textPrimary,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 3,
+                    ),
+                  ),
+                  _miniIconButton(LucideIcons.refresh_cw, () {
+                    bind.mainUpdateTemporaryPassword();
+                  }, color: _KddColors.brand),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _miniIconButton(IconData icon, VoidCallback onTap,
+      {Color color = _KddColors.textSecondary}) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(11),
+      child: Container(
+        width: 38,
+        height: 38,
+        decoration: BoxDecoration(
+          color: _KddColors.input,
+          borderRadius: BorderRadius.circular(11),
+        ),
+        child: Icon(icon, size: 18, color: color),
+      ),
+    );
+  }
+
+  Widget _buildQuickActions() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 14),
+      child: Row(
+        children: [
+          Expanded(
+            child: _quickCard(
+              icon: LucideIcons.scan_line,
+              accent: _KddColors.brand,
+              title: translate('Scan QR Code'),
+              onTap: () => onConnect(),
+            ),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: _quickCard(
+              icon: LucideIcons.arrow_right_left,
+              accent: _KddColors.amber,
+              title: translate('Transfer file'),
+              onTap: () {
+                final id = _idController.id;
+                if (id.isNotEmpty) {
+                  connect(context, id, isFileTransfer: true);
+                }
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _quickCard({
+    required IconData icon,
+    required Color accent,
+    required String title,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(18),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: _KddColors.surface,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: _KddColors.borderDefault, width: 1),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 42,
+              height: 42,
+              decoration: BoxDecoration(
+                color: accent.withOpacity(0.14),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(icon, size: 22, color: accent),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              title,
+              style: const TextStyle(
+                color: _KddColors.textPrimary,
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   /// Callback for the connect button.
@@ -150,13 +443,14 @@ class _ConnectionPageState extends State<ConnectionPage> {
   /// Search for a peer and connect to it if the id exists.
   Widget _buildRemoteIDTextField() {
     final w = SizedBox(
-      height: 84,
+      height: 72,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 14),
         child: Ink(
           decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            borderRadius: BorderRadius.all(Radius.circular(13)),
+            color: _KddColors.surface,
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+            border: Border.all(color: _KddColors.borderDefault, width: 1),
           ),
           child: Row(
             children: <Widget>[
@@ -233,23 +527,21 @@ class _ConnectionPageState extends State<ConnectionPage> {
                         style: const TextStyle(
                           fontFamily: 'WorkSans',
                           fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: MyTheme.idColor,
+                          fontSize: 22,
+                          color: _KddColors.textPrimary,
                         ),
                         decoration: InputDecoration(
-                          labelText: translate('Remote ID'),
-                          // hintText: 'Enter your remote ID',
+                          hintText: translate('Enter Remote ID'),
                           border: InputBorder.none,
                           helperStyle: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: MyTheme.darkGray,
+                            color: _KddColors.textTertiary,
                           ),
-                          labelStyle: const TextStyle(
-                            fontWeight: FontWeight.w600,
+                          hintStyle: const TextStyle(
+                            fontWeight: FontWeight.w500,
                             fontSize: 16,
-                            letterSpacing: 0.2,
-                            color: MyTheme.darkGray,
+                            color: _KddColors.textTertiary,
                           ),
                         ),
                         inputFormatters: [IDTextInputFormatter()],
@@ -340,11 +632,15 @@ class _ConnectionPageState extends State<ConnectionPage> {
                 height: 48,
                 margin: const EdgeInsets.only(right: 6),
                 decoration: BoxDecoration(
-                  color: MyTheme.accent,
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [_KddColors.brand, _KddColors.brandDark],
+                  ),
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: MyTheme.accent.withOpacity(0.45),
+                      color: _KddColors.brand.withOpacity(0.45),
                       blurRadius: 14,
                       offset: const Offset(0, 4),
                     ),

@@ -73,14 +73,21 @@ class HomePageState extends State<HomePage> {
           return false;
         },
         child: Scaffold(
-          // backgroundColor: MyTheme.grayBg,
+          backgroundColor: const Color(0xFF0B0E14),
           appBar: AppBar(
-            centerTitle: true,
+            centerTitle: false,
+            backgroundColor: const Color(0xFF0B0E14),
+            elevation: 0,
+            scrolledUnderElevation: 0,
+            surfaceTintColor: Colors.transparent,
             title: appTitle(),
+            iconTheme: const IconThemeData(color: Color(0xFFE6EAF2)),
             actions: _pages.elementAt(_selectedIndex).appBarActions,
           ),
           bottomNavigationBar: BottomNavigationBar(
             key: navigationBarKey,
+            backgroundColor: const Color(0xFF0E1219),
+            elevation: 0,
             items: _pages
                 .map((page) =>
                     BottomNavigationBarItem(icon: page.icon, label: page.title))
@@ -88,7 +95,7 @@ class HomePageState extends State<HomePage> {
             currentIndex: _selectedIndex,
             type: BottomNavigationBarType.fixed,
             selectedItemColor: MyTheme.accent, //
-            unselectedItemColor: MyTheme.darkGray,
+            unselectedItemColor: const Color(0xFF6C7280),
             onTap: (index) => setState(() {
               // close chat overlay when go chat page
               if (_selectedIndex != index) {
@@ -150,7 +157,41 @@ class HomePageState extends State<HomePage> {
         ],
       );
     }
-    return Text(bind.mainGetAppNameSync());
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 30,
+          height: 30,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Color(0xFF7355ED), Color(0xFF5032BD)],
+            ),
+            borderRadius: BorderRadius.circular(9),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF7355ED).withOpacity(0.5),
+                blurRadius: 12,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: const Icon(Icons.cast_connected_rounded,
+              size: 17, color: Colors.white),
+        ),
+        const SizedBox(width: 10),
+        const Text(
+          '控多多',
+          style: TextStyle(
+            color: Color(0xFFE6EAF2),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
   }
 }
 

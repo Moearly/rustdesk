@@ -496,6 +496,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
           ChangeNotifierProvider.value(value: gFFI.cursorModel),
           ChangeNotifierProvider.value(value: gFFI.canvasModel),
           ChangeNotifierProvider.value(value: gFFI.peerTabModel),
+          ChangeNotifierProvider.value(value: gFFI.serverModel),
         ],
         child: GetMaterialApp(
           navigatorKey: globalKey,

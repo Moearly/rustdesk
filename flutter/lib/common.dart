@@ -580,7 +580,12 @@ class MyTheme {
   );
 
   static ThemeMode getThemeModePreference() {
-    return themeModeFromString(bind.mainGetLocalOption(key: kCommConfKeyTheme));
+    final stored = bind.mainGetLocalOption(key: kCommConfKeyTheme);
+    // 控多多移动端默认深色（用户未显式设置时），桌面端保持原行为
+    if (stored.isEmpty && (isAndroid || isIOS)) {
+      return ThemeMode.dark;
+    }
+    return themeModeFromString(stored);
   }
 
   static Future<void> changeDarkMode(ThemeMode mode) async {
