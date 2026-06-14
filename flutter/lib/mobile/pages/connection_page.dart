@@ -20,6 +20,7 @@ import '../../models/model.dart';
 import '../../models/platform_model.dart';
 import '../../models/server_model.dart';
 import 'home_page.dart';
+import 'scan_page.dart';
 
 /// 控多多移动端首页配色（深色商业级，紫罗兰品牌）
 class _KddColors {
@@ -325,21 +326,18 @@ class _ConnectionPageState extends State<ConnectionPage> {
               icon: LucideIcons.scan_line,
               accent: _KddColors.brand,
               title: translate('Scan QR Code'),
-              onTap: () => onConnect(),
+              subtitle: translate('Scan to connect'),
+              onTap: _onScan,
             ),
           ),
           const SizedBox(width: 14),
           Expanded(
             child: _quickCard(
-              icon: LucideIcons.arrow_right_left,
+              icon: LucideIcons.folder_symlink,
               accent: _KddColors.amber,
               title: translate('Transfer file'),
-              onTap: () {
-                final id = _idController.id;
-                if (id.isNotEmpty) {
-                  connect(context, id, isFileTransfer: true);
-                }
-              },
+              subtitle: translate('Send & receive'),
+              onTap: _onFileTransfer,
             ),
           ),
         ],
@@ -351,6 +349,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
     required IconData icon,
     required Color accent,
     required String title,
+    required String subtitle,
     required VoidCallback onTap,
   }) {
     return InkWell(
@@ -384,10 +383,37 @@ class _ConnectionPageState extends State<ConnectionPage> {
                 fontWeight: FontWeight.w600,
               ),
             ),
+            const SizedBox(height: 3),
+            Text(
+              subtitle,
+              style: const TextStyle(
+                color: _KddColors.textTertiary,
+                fontSize: 12,
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  /// 打开扫码页
+  void _onScan() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) => ScanPage()),
+    );
+  }
+
+  /// 文件传输：校验远程 ID，空则提示
+  void _onFileTransfer() {
+    final id = _idController.id;
+    if (id.isEmpty) {
+      showToast(translate('Please enter your remote ID'));
+      _idFocusNode.requestFocus();
+      return;
+    }
+    connect(context, id, isFileTransfer: true);
   }
 
   /// Callback for the connect button.
@@ -432,11 +458,26 @@ class _ConnectionPageState extends State<ConnectionPage> {
             child: Container(
                 alignment: AlignmentDirectional.center,
                 width: double.infinity,
-                color: Colors.pinkAccent,
+                margin: const EdgeInsets.symmetric(horizontal: 14),
+                decoration: BoxDecoration(
+                  color: _KddColors.brand.withOpacity(0.16),
+                  borderRadius: BorderRadius.circular(12),
+                  border:
+                      Border.all(color: _KddColors.brand.withOpacity(0.4)),
+                ),
                 padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Text(translate('Download new version'),
-                    style: const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold))));
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(LucideIcons.download,
+                        size: 16, color: _KddColors.brand),
+                    const SizedBox(width: 8),
+                    Text(translate('Download new version'),
+                        style: const TextStyle(
+                            color: _KddColors.brand,
+                            fontWeight: FontWeight.w600)),
+                  ],
+                )));
   }
 
   /// UI for the remote ID TextField.

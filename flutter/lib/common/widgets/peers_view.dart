@@ -4,6 +4,7 @@ import 'dart:collection';
 import 'package:dynamic_layouts/dynamic_layouts.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_hbb/consts.dart';
 import 'package:flutter_hbb/models/ab_model.dart';
 import 'package:flutter_hbb/models/peer_tab_model.dart';
@@ -187,15 +188,33 @@ class _PeersViewState extends State<_PeersView>
       child: Consumer<Peers>(builder: (context, peers, child) {
         if (peers.peers.isEmpty) {
           gFFI.peerTabModel.setCurrentTabCachedPeers([]);
+          final isDark =
+              Theme.of(context).brightness == Brightness.dark;
+          final iconColor =
+              isMobile && isDark ? const Color(0xFF6C7280) : null;
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.sentiment_very_dissatisfied_rounded,
-                  color: Theme.of(context).tabBarTheme.labelColor,
-                  size: 40,
-                ).paddingOnly(bottom: 10),
+                Container(
+                  width: 72,
+                  height: 72,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: (isMobile && isDark)
+                        ? const Color(0xFF161A22)
+                        : Theme.of(context)
+                            .tabBarTheme
+                            .labelColor
+                            ?.withOpacity(0.06),
+                  ),
+                  child: Icon(
+                    LucideIcons.monitor_dot,
+                    color: iconColor ??
+                        Theme.of(context).tabBarTheme.labelColor,
+                    size: 32,
+                  ),
+                ).paddingOnly(bottom: 16),
                 Text(
                   translate(
                     _emptyMessages[widget.peers.loadEvent] ?? 'Empty',
@@ -203,6 +222,7 @@ class _PeersViewState extends State<_PeersView>
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Theme.of(context).tabBarTheme.labelColor,
+                    fontSize: 14,
                   ),
                 ),
               ],
