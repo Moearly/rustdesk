@@ -382,7 +382,7 @@ pub static ref T: std::collections::HashMap<&'static str, &'static str> =
         ("xdp-portal-unavailable", "Wayland 屏幕捕获失败。XDG Desktop Portal 可能已崩溃或不可用。请尝试使用 `systemctl --user restart xdg-desktop-portal` 重启它。"),
         ("JumpLink", "查看"),
         ("Please Select the screen to be shared(Operate on the peer side).", "请选择要分享的画面（对端操作）。"),
-        ("Show RustDesk", "显示 RustDesk"),
+        ("Show RustDesk", "显示控多多"),
         ("This PC", "此电脑"),
         ("or", "或"),
         ("Elevate", "提权"),

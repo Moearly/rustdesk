@@ -716,7 +716,7 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
           if (!disabledSettings && !_hideNetwork && !_hideServer)
             SettingsTile(
                 title: Text(translate('ID/Relay Server')),
-                leading: Icon(Icons.cloud),
+                leading: Icon(LucideIcons.server),
                 onPressed: (context) {
                   showServerSettings(gFFI.dialogManager, (callback) async {
                     _isUsingPublicServer = await bind.mainIsUsingPublicServer();
@@ -726,14 +726,14 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
           if (!_hideNetwork && !_hideProxy)
             SettingsTile(
                 title: Text(translate('Socks5/Http(s) Proxy')),
-                leading: Icon(Icons.network_ping),
+                leading: Icon(LucideIcons.network),
                 onPressed: (context) {
                   changeSocks5Proxy();
                 }),
           if (isAndroid && !bind.isOutgoingOnly())
             SettingsTile(
                 title: Text(translate('Deploy')),
-                leading: Icon(Icons.cloud_upload),
+                leading: Icon(LucideIcons.cloud_upload),
                 onPressed: (context) {
                   showDeployDialog();
                 }),
@@ -812,7 +812,7 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
             ),
           SettingsTile(
               title: Text(translate('Language')),
-              leading: Icon(Icons.translate),
+              leading: Icon(LucideIcons.languages),
               onPressed: (context) {
                 showLanguageSettings(gFFI.dialogManager);
               }),
@@ -822,8 +822,8 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
                     ? 'Light Theme'
                     : 'Dark Theme')),
             leading: Icon(Theme.of(context).brightness == Brightness.light
-                ? Icons.dark_mode
-                : Icons.light_mode),
+                ? LucideIcons.moon
+                : LucideIcons.sun),
             onPressed: (context) {
               showThemeSettings(gFFI.dialogManager);
             },
@@ -966,14 +966,14 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
                         decoration: TextDecoration.underline,
                       )),
                 ),
-                leading: Icon(Icons.info)),
+                leading: Icon(LucideIcons.info)),
             SettingsTile(
                 title: Text(translate("Build Date")),
                 value: Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: Text(_buildDate),
                 ),
-                leading: Icon(Icons.query_builder)),
+                leading: Icon(LucideIcons.calendar_clock)),
             if (isAndroid)
               SettingsTile(
                   onPressed: (context) => onCopyFingerprint(_fingerprint),
@@ -982,12 +982,12 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
                     padding: EdgeInsets.symmetric(vertical: 8),
                     child: Text(_fingerprint),
                   ),
-                  leading: Icon(Icons.fingerprint)),
+                  leading: Icon(LucideIcons.key_round)),
             SettingsTile(
               title: Text(translate("Privacy Statement")),
               onPressed: (context) =>
                   launchUrlString('https://rustdesk.com/privacy.html'),
-              leading: Icon(Icons.privacy_tip),
+              leading: Icon(LucideIcons.shield_check),
             )
           ],
         ),
@@ -1013,8 +1013,8 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
       tiles: [
         SettingsTile(
             title: Text(translate('Display Settings')),
-            leading: Icon(Icons.desktop_windows_outlined),
-            trailing: Icon(Icons.arrow_forward_ios),
+            leading: Icon(LucideIcons.monitor_cog),
+            trailing: Icon(LucideIcons.chevron_right),
             onPressed: (context) {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return _DisplayPage();
