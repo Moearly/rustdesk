@@ -94,6 +94,10 @@ class _ConnectionPageState extends State<ConnectionPage> {
         }
       });
     }
+    // 在首页主动拉取本机 ID，使英雄卡立即显示真实 ID（原仅共享屏幕页拉取）
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await gFFI.serverModel.fetchID();
+    });
     Get.put<TextEditingController>(_idEditingController);
   }
 
